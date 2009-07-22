@@ -1,6 +1,6 @@
-module JsTestCore
+module JsTestServer
   module Resources
-    class SpecFile < ::JsTestCore::Resources::File
+    class SpecFile < ::JsTestServer::Resources::File
       map "/specs"
 
       get "/?" do
@@ -40,7 +40,7 @@ module JsTestCore
       end
 
       def render_spec(spec_files)
-        JsTestCore.suite_representation_class.new(:spec_files => spec_files).to_s
+        JsTestServer.suite_representation_class.new(:spec_files => spec_files).to_s
       end
 
       def absolute_path

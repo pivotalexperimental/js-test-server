@@ -25,7 +25,7 @@ def run_suite
   system("ruby #{dir}/spec/spec_suite.rb") || raise("Example Suite failed")
 end
 
-PKG_NAME = "js_test_core"
+PKG_NAME = "js_test_server"
 PKG_VERSION = "0.2.0"
 PKG_FILES = FileList[
   '[A-Z]*',
@@ -39,7 +39,7 @@ PKG_FILES = FileList[
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
   s.version = PKG_VERSION
-  s.summary = "The JsTestCore library is the core javascript test server library used by several JS Test server libraries."
+  s.summary = "The JsTestServer library is the core javascript test server library used by several JS Test server libraries."
   s.test_files = "spec/spec_suite.rb"
   s.description = s.summary
 
@@ -69,5 +69,5 @@ end
 def tag_release
   dashed_version = PKG_VERSION.gsub('.', '-')
   svn_user = "#{ENV["SVN_USER"]}@" || ""
-  `svn cp svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_core/trunk svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_core/tags/REL-#{dashed_version} -m 'Version #{PKG_VERSION}'`
+  `svn cp svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/trunk svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/tags/REL-#{dashed_version} -m 'Version #{PKG_VERSION}'`
 end

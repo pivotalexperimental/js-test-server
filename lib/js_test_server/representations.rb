@@ -1,6 +1,6 @@
 dir = File.dirname(__FILE__)
 
-module JsTestCore
+module JsTestServer
   module Representations
   end
 end

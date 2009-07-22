@@ -1,5 +1,5 @@
-= JsTestCore
-JsTestCore provides a command line runner and html suite file generation for your favorite Javascript testing framework.
+= JsTestServer
+JsTestServer provides a command line runner and html suite file generation for your favorite Javascript testing framework.
 
 == Current supported frameworks
 * Jasmine

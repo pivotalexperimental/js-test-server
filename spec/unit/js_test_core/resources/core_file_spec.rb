@@ -1,14 +1,14 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   module Resources
     describe CoreFile do
       describe "Files" do
-        describe "GET /core/JsTestCore.js" do
-          it "renders the JsTestCore.js file, which lives in the core framework directory" do
-            absolute_path = "#{framework_path}/JsTestCore.js"
+        describe "GET /core/JsTestServer.js" do
+          it "renders the JsTestServer.js file, which lives in the core framework directory" do
+            absolute_path = "#{framework_path}/example_framework.js"
 
-            response = get(CoreFile.path("JsTestCore.js"))
+            response = get(CoreFile.path("example_framework.js"))
             response.should be_http(
               200,
               {
@@ -32,8 +32,8 @@ module JsTestCore
             )
             doc = Nokogiri::HTML(response.body)
             links = doc.search("a").map {|script| script["href"]}
-            links.should include("/core/JsTestCore.js")
-            links.should include("/core/JsTestCore.css")
+            links.should include("/core/example_framework.js")
+            links.should include("/core/example_framework.css")
             links.should include("/core/subdir")
           end
         end

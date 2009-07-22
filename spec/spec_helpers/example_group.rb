@@ -25,9 +25,9 @@ class Spec::ExampleGroup
   end
 
   before(:each) do
-    JsTestCore::Configuration.instance.spec_path = spec_path
-    JsTestCore::Configuration.instance.root_path = root_path
-    JsTestCore::Configuration.instance.framework_path = framework_path
+    JsTestServer::Configuration.instance.spec_path = spec_path
+    JsTestServer::Configuration.instance.root_path = root_path
+    JsTestServer::Configuration.instance.framework_path = framework_path
   end
 
   def app

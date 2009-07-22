@@ -1,6 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   module Resources
     describe WebRoot do
       macro("includes a link to the spec suite") do |relative_path|

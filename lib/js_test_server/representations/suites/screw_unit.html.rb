@@ -1,7 +1,7 @@
-module JsTestCore
+module JsTestServer
   module Representations
     module Suites
-      class ScrewUnit < JsTestCore::Representations::Suite
+      class ScrewUnit < JsTestServer::Representations::Suite
         class << self
           def jquery_js_file
             @jquery_js_file ||= "/core/jquery-1.3.2.js"

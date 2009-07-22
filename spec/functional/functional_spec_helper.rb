@@ -17,7 +17,7 @@ end
 Sinatra::Application.use ShowTestExceptions
 Sinatra::Application.set :raise_errors, true
 
-Sinatra::Application.use(JsTestCore::App)
+Sinatra::Application.use(JsTestServer::App)
 
 
 class Spec::ExampleGroup
@@ -37,6 +37,6 @@ class Spec::ExampleGroup
   end
 
   def root_url
-    "http://#{JsTestCore::Server::DEFAULTS[:host]}:#{JsTestCore::Server::DEFAULTS[:port]}"
+    "http://#{JsTestServer::Server::DEFAULTS[:host]}:#{JsTestServer::Server::DEFAULTS[:port]}"
   end
 end

@@ -1,6 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   describe Server do
     describe ".cli" do
       attr_reader :server, :builder, :stdout, :rackup_path
@@ -28,9 +28,9 @@ module JsTestCore
           end
 
           stub.proxy(Rack::Builder).new do |builder|
-            mock.proxy(builder).use(JsTestCore::App)
+            mock.proxy(builder).use(JsTestServer::App)
             stub.proxy(builder).use
-            mock(builder).run(is_a(JsTestCore::App))
+            mock(builder).run(is_a(JsTestServer::App))
             mock(builder).run(is_a(Sinatra::Application))
           end
 
@@ -42,7 +42,7 @@ module JsTestCore
             "--port", "8081"
           )
 
-          JsTestCore::Configuration.instance.suite_representation_class.should == JsTestCore::Representations::Suites::ScrewUnit
+          JsTestServer::Configuration.instance.suite_representation_class.should == JsTestServer::Representations::Suites::ScrewUnit
         end
       end
 

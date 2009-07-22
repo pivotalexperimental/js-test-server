@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Resources
     class File < Resource
       def self.render_file(absolute_path)

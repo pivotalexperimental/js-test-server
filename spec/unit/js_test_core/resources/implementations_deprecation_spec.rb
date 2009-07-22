@@ -1,6 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   module Resources
     describe ImplementationsDeprecation do
       describe "GET /implementations/*" do

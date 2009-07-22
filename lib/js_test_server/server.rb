@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   class Server
     class << self
       attr_writer :instance
@@ -48,20 +48,20 @@ module JsTestCore
         )
       end
 
-      JsTestCore.port = opts[:port]
-      JsTestCore.framework_name = opts[:framework_name]
-      JsTestCore.framework_path = opts[:framework_path]
-      JsTestCore.spec_path = opts[:spec_path]
-      JsTestCore.root_path = opts[:root_path]
-      STDOUT.puts "root-path is #{JsTestCore.root_path}"
-      STDOUT.puts "spec-path is #{JsTestCore.spec_path}"
+      JsTestServer.port = opts[:port]
+      JsTestServer.framework_name = opts[:framework_name]
+      JsTestServer.framework_path = opts[:framework_path]
+      JsTestServer.spec_path = opts[:spec_path]
+      JsTestServer.root_path = opts[:root_path]
+      STDOUT.puts "root-path is #{JsTestServer.root_path}"
+      STDOUT.puts "spec-path is #{JsTestServer.spec_path}"
       start
     end
 
     def start
       require "thin"
       Thin::Runner.new([
-        "--port", JsTestCore.port.to_s,
+        "--port", JsTestServer.port.to_s,
         "--rackup", File.expand_path(rackup_path),
         "start"]
       ).run!
@@ -70,7 +70,7 @@ module JsTestCore
     def standalone_rackup(rack_builder)
       require "sinatra"
 
-      rack_builder.use JsTestCore::App
+      rack_builder.use JsTestServer::App
       rack_builder.run Sinatra::Application
     end
 

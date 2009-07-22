@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Representations
     class Suite < Page
       class << self

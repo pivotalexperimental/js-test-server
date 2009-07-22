@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   class Configuration
     class << self
       attr_accessor :instance
@@ -27,7 +27,7 @@ module JsTestCore
 
     def suite_representation_class
       if framework_name
-        JsTestCore::Representations::Suites.const_get(framework_name.gsub("-", "_").camelcase)
+        JsTestServer::Representations::Suites.const_get(framework_name.gsub("-", "_").camelcase)
       end
     end
 
@@ -41,7 +41,7 @@ module JsTestCore
       @root_path = path
     end
 
-    def js_test_core_js_path
+    def js_test_server_js_path
       "#{library_root_dir}/public/js_test_server.js"
     end
 

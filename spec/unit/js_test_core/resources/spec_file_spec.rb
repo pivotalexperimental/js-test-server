@@ -1,14 +1,14 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   module Resources
     describe SpecFile do
       describe "Configuration" do
         attr_reader :doc
         before do
-          JsTestCore.framework_name = "screw-unit"
-          JsTestCore::Representations::Suite.project_js_files += ["/javascripts/test_file_1.js", "/javascripts/test_file_2.js"]
-          JsTestCore::Representations::Suite.project_css_files += ["/stylesheets/test_file_1.css", "/stylesheets/test_file_2.css"]
+          JsTestServer.framework_name = "screw-unit"
+          JsTestServer::Representations::Suite.project_js_files += ["/javascripts/test_file_1.js", "/javascripts/test_file_2.js"]
+          JsTestServer::Representations::Suite.project_css_files += ["/stylesheets/test_file_1.css", "/stylesheets/test_file_2.css"]
 
           response = get(SpecFile.path("/failing_spec"))
           response.should be_http( 200, {}, "" )
@@ -17,8 +17,8 @@ module JsTestCore
         end
 
         after do
-          JsTestCore::Representations::Suite.project_js_files.clear
-          JsTestCore::Representations::Suite.project_css_files.clear
+          JsTestServer::Representations::Suite.project_js_files.clear
+          JsTestServer::Representations::Suite.project_css_files.clear
         end
 
         it "renders project js files" do

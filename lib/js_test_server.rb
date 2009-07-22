@@ -15,15 +15,15 @@ require "erector"
 
 Erector::Widget.prettyprint_default = true
 
-require "#{dir}/js_test_core/configuration"
+require "#{dir}/js_test_server/configuration"
 
-require "#{dir}/js_test_core/resources"
-require "#{dir}/js_test_core/representations"
-require "#{dir}/js_test_core/server"
-require "#{dir}/js_test_core/client"
-require "#{dir}/js_test_core/app"
+require "#{dir}/js_test_server/resources"
+require "#{dir}/js_test_server/representations"
+require "#{dir}/js_test_server/server"
+require "#{dir}/js_test_server/client"
+require "#{dir}/js_test_server/app"
 
-module JsTestCore
+module JsTestServer
   class << self
     Configuration.instance = Configuration.new
 

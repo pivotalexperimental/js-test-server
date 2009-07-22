@@ -3,7 +3,7 @@ require "timeout"
 require "lsof"
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift "#{dir}/../../lib"
-require "js_test_core"
+require "js_test_server"
 require "nokogiri"
 
 module WaitFor

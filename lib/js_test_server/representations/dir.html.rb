@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Representations
     class Dir < Page
       needs :relative_path, :absolute_path

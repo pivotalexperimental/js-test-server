@@ -1,6 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../unit_spec_helper")
 
-module JsTestCore
+module JsTestServer
   describe Configuration do
     attr_reader :result
     
@@ -27,14 +27,14 @@ module JsTestCore
     end
 
     describe "#framework_path" do
-      it "returns the expanded path to the JsTestCore core directory" do
+      it "returns the expanded path to the JsTestServer core directory" do
         Configuration.framework_path.should == framework_path
       end
     end
     
-    describe "#js_test_core_js_path" do
-      it "returns the path to js_test_core.js" do
-        ::File.read(Configuration.js_test_core_js_path).should include("function JsTestServer()")
+    describe "#js_test_server_js_path" do
+      it "returns the path to js_test_server.js" do
+        ::File.read(Configuration.js_test_server_js_path).should include("function JsTestServer()")
       end
     end
     

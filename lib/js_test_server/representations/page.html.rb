@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Representations
     class Page < Erector::Widget
       def content(&block)

@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Resources
     class WebRoot < Resource
       map "/"
@@ -8,7 +8,7 @@ module JsTestCore
       end
 
       get("js_test_server.js") do
-        File.render_file(Configuration.js_test_core_js_path)
+        File.render_file(Configuration.js_test_server_js_path)
       end
     end
   end

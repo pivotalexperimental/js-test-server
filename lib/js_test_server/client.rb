@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   class Client
     RUNNING_RUNNER_STATE = "running"
     PASSED_RUNNER_STATE = "success"

@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Resources
     class CoreFile < File
       map "/core"

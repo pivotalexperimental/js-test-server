@@ -8,7 +8,7 @@ ARGV.push("-b")
 dir = File.dirname(__FILE__)
 LIBRARY_ROOT_DIR = File.expand_path("#{dir}/../..")
 $LOAD_PATH.unshift File.expand_path("#{LIBRARY_ROOT_DIR}/lib")
-require "js_test_core"
+require "js_test_server"
 require "nokogiri"
 require "guid"
 require "thin"
@@ -24,7 +24,7 @@ end
 Sinatra::Application.use ShowTestExceptions
 Sinatra::Application.set :raise_errors, true
 Sinatra::Application.set :show_exceptions, false
-JsTestCore::App.set :raise_errors, true
-JsTestCore::App.set :show_exceptions, false
+JsTestServer::App.set :raise_errors, true
+JsTestServer::App.set :show_exceptions, false
 
-Sinatra::Application.use(JsTestCore::App)
+Sinatra::Application.use(JsTestServer::App)

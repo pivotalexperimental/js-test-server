@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Resources
     class Resource < LuckyLuciano::Resource
       protected
@@ -9,7 +9,7 @@ module JsTestCore
       def root_url; server.root_url; end
 
       def server
-        JsTestCore::Configuration
+        JsTestServer::Configuration
       end
     end
   end

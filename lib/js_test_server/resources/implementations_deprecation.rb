@@ -1,4 +1,4 @@
-module JsTestCore
+module JsTestServer
   module Resources
     class ImplementationsDeprecation < Resource
       map "/implementations"
