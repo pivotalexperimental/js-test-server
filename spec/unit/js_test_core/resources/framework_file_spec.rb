@@ -2,13 +2,13 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
 module JsTestServer
   module Resources
-    describe CoreFile do
+    describe FrameworkFile do
       describe "Files" do
         describe "GET /core/JsTestServer.js" do
           it "renders the JsTestServer.js file, which lives in the core framework directory" do
             absolute_path = "#{framework_path}/example_framework.js"
 
-            response = get(CoreFile.path("example_framework.js"))
+            response = get(FrameworkFile.path("example_framework.js"))
             response.should be_http(
               200,
               {
@@ -24,7 +24,7 @@ module JsTestServer
       describe "Directories" do
         macro "returns a page with the files in the root core directory" do |relative_path|
           it "returns a page with the files in the root core directory" do
-            response = get(CoreFile.path(relative_path))
+            response = get(FrameworkFile.path(relative_path))
             response.should be_http(
               200,
               {},
@@ -46,7 +46,7 @@ module JsTestServer
 
         describe "GET /core/subdir" do
           it "returns a page with the files in the directory" do
-            response = get(CoreFile.path("subdir"))
+            response = get(FrameworkFile.path("subdir"))
             response.should be_http(
               200,
               {},

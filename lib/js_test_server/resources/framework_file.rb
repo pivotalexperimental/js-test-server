@@ -1,6 +1,6 @@
 module JsTestServer
   module Resources
-    class CoreFile < File
+    class FrameworkFile < File
       map "/core"
 
       get "/?" do
