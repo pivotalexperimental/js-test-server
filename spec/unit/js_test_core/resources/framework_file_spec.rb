@@ -4,7 +4,7 @@ module JsTestServer
   module Resources
     describe FrameworkFile do
       describe "Files" do
-        describe "GET /core/JsTestServer.js" do
+        describe "GET /framework/JsTestServer.js" do
           it "renders the JsTestServer.js file, which lives in the core framework directory" do
             absolute_path = "#{framework_path}/example_framework.js"
 
@@ -32,25 +32,25 @@ module JsTestServer
             )
             doc = Nokogiri::HTML(response.body)
             links = doc.search("a").map {|script| script["href"]}
-            links.should include("/core/example_framework.js")
-            links.should include("/core/example_framework.css")
-            links.should include("/core/subdir")
+            links.should include("/framework/example_framework.js")
+            links.should include("/framework/example_framework.css")
+            links.should include("/framework/subdir")
           end
         end
-        describe "GET /core" do
+        describe "GET /framework" do
           send("returns a page with the files in the root core directory", "")
         end
-        describe "GET /core/" do
+        describe "GET /framework/" do
           send("returns a page with the files in the root core directory", "/")
         end
 
-        describe "GET /core/subdir" do
+        describe "GET /framework/subdir" do
           it "returns a page with the files in the directory" do
             response = get(FrameworkFile.path("subdir"))
             response.should be_http(
               200,
               {},
-              %r(<a href="/core/subdir/SubDirFile.js">SubDirFile.js</a>)
+              %r(<a href="/framework/subdir/SubDirFile.js">SubDirFile.js</a>)
             )
           end
         end

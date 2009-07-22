@@ -4,7 +4,7 @@ module JsTestServer
       class ScrewUnit < JsTestServer::Representations::Suite
         class << self
           def jquery_js_file
-            @jquery_js_file ||= "/core/jquery-1.3.2.js"
+            @jquery_js_file ||= "/framework/jquery-1.3.2.js"
           end
           attr_writer :jquery_js_file
         end
@@ -50,7 +50,7 @@ module JsTestServer
             })(jQuery);
           JS
           project_js_files
-          link :rel => "stylesheet", :href => "/core/screw.css"
+          link :rel => "stylesheet", :href => "/framework/screw.css"
           project_css_files
 
           spec_script_elements
@@ -59,12 +59,12 @@ module JsTestServer
         def core_js_files
           script :src => jquery_js_file
           script :src => "/js_test_server.js"
-          script :src => "/core/jquery.fn.js"
-          script :src => "/core/jquery.print.js"
-          script :src => "/core/screw.builder.js"
-          script :src => "/core/screw.matchers.js"
-          script :src => "/core/screw.events.js"
-          script :src => "/core/screw.behaviors.js"
+          script :src => "/framework/jquery.fn.js"
+          script :src => "/framework/jquery.print.js"
+          script :src => "/framework/screw.builder.js"
+          script :src => "/framework/screw.matchers.js"
+          script :src => "/framework/screw.events.js"
+          script :src => "/framework/screw.behaviors.js"
         end
 
         def jquery_js_file
