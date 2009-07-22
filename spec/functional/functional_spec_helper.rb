@@ -22,19 +22,23 @@ Sinatra::Application.use(JsTestServer::App)
 
 class Spec::ExampleGroup
   include WaitFor
-  attr_reader :spec_path, :root_path
 
-  before(:all) do
-    @spec_path = FunctionalSpecServerStarter.spec_path
-    @root_path = FunctionalSpecServerStarter.root_path
-    unless SeleniumRC::Server.service_is_running?
-      Thread.start do
-        SeleniumRC::Server.boot
+  def self.start_servers(framework_name)
+    before(:all) do
+      unless SeleniumRC::Server.service_is_running?
+        Thread.start do
+          SeleniumRC::Server.boot
+        end
       end
+      FunctionalSpecServerStarter.new(framework_name).call
+      TCPSocket.wait_for_service :host => "0.0.0.0", :port => "4444"
     end
-    FunctionalSpecServerStarter.call
-    TCPSocket.wait_for_service :host => "0.0.0.0", :port => "4444"
+
+    after(:suite) do
+      FunctionalSpecServerStarter.new(framework_name).stop_thin_server
+    end
   end
+
 
   def root_url
     "http://#{JsTestServer::Server::DEFAULTS[:host]}:#{JsTestServer::Server::DEFAULTS[:port]}"

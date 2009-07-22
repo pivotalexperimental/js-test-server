@@ -19,59 +19,62 @@ module WaitFor
 end
 
 class FunctionalSpecServerStarter
-  class << self
-    include WaitFor
-    def call(threaded=true)
-      return if $js_test_server_started
+  include WaitFor
 
-      Lsof.kill(8080)
-      wait_for do
-        !Lsof.running?(8080)
-      end
+  attr_reader :framework_name
+  def initialize(framework_name)
+    @framework_name = framework_name
+  end
 
-      dir = File.dirname(__FILE__)
-      Dir.chdir("#{dir}/../../") do
-        Thread.start do
-          start_thin_server
-        end
-      end
+  def call(threaded=true)
+    return if $js_test_server_started
 
-      wait_for do
-        Lsof.running?(8080)
-      end
-      $js_test_server_started = true
+    Lsof.kill(8080)
+    wait_for do
+      !Lsof.running?(8080)
     end
 
-    def start_thin_server
-      system("bin/js-test-server --spec-path=#{spec_path} --root-path=#{root_path} --framework-name=#{framework_name} --framework-path=#{framework_path}")
-      at_exit do
-        puts "#{__FILE__}:#{__LINE__}"
-        Lsof.kill(8080)
+    dir = File.dirname(__FILE__)
+    Dir.chdir("#{dir}/../../") do
+      Thread.start do
+        start_thin_server
       end
     end
 
-    def framework_name
-      "screw-unit"
+    wait_for do
+      Lsof.running?(8080)
     end
+    $js_test_server_started = true
+  end
 
-    def framework_path
-      File.expand_path("#{dir}/../../../screw-unit/lib")
+  def start_thin_server
+    system("bin/js-test-server --spec-path=#{spec_path} --root-path=#{root_path} --framework-name=#{framework_name} --framework-path=#{framework_path}")
+    at_exit do
+      stop_thin_server
     end
+  end
 
-    def spec_path
-      File.expand_path("#{dir}/../example_spec")
-    end
+  def stop_thin_server
+    Lsof.kill(8080)
+  end
 
-    def root_path
-      File.expand_path("#{dir}/../example_root")
-    end
+  def framework_path
+    File.expand_path("#{dir}/../../../#{framework_name}/lib")
+  end
 
-    def dir
-      dir = File.dirname(__FILE__)
-    end
+  def spec_path
+    File.expand_path("#{dir}/#{framework_name}/example_spec")
+  end
+
+  def root_path
+    File.expand_path("#{dir}/../example_root")
+  end
+
+  def dir
+    dir = File.dirname(__FILE__)
   end
 end
 
 if $0 == __FILE__
-  FunctionalSpecServerStarter.call(false)
+  FunctionalSpecServerStarter.new("screw-unit").call(false)
 end
