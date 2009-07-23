@@ -76,5 +76,6 @@ class FunctionalSpecServerStarter
 end
 
 if $0 == __FILE__
-  FunctionalSpecServerStarter.new("screw-unit").call(false)
+  FunctionalSpecServerStarter.new(ENV["FRAMEWORK_PATH"] || "jasmine").call(false)
+  sleep
 end

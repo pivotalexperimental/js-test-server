@@ -7,7 +7,7 @@ class FunctionalSuite
   end
 end
 
-["screw-unit"].each do |framework_name|
+["jasmine", "screw-unit"].each do |framework_name|
   pid = fork do
     FunctionalSuite.new.run(framework_name)
   end
