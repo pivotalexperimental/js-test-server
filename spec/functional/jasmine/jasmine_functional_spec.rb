@@ -15,12 +15,12 @@ describe JsTestServer do
   end
 
   it "runs a full passing Suite" do
-    JsTestServer::Client.run(:spec_url => "#{root_url}/specs/passing_spec")
+    JsTestServer::Client::Runner.run(:spec_url => "#{root_url}/specs/passing_spec")
     stdout.string.strip.should include(JsTestServer::Client::PASSED_RUNNER_STATE.capitalize)
   end
 
   it "runs a full failing Suite" do
-    JsTestServer::Client.run(:spec_url => "#{root_url}/specs/failing_spec")
+    JsTestServer::Client::Runner.run(:spec_url => "#{root_url}/specs/failing_spec")
     stdout.string.strip.should include(JsTestServer::Client::FAILED_RUNNER_STATE.capitalize)
     stdout.string.strip.should include("A failing spec fails")
   end
