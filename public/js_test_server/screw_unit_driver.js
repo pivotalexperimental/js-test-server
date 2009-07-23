@@ -6,7 +6,7 @@
   };
 
   $(Screw).bind('after', function() {
-    var error_text = $(".error").map(function(i, error_element) {
+    var error_text = $(".error").map(function(_i, error_element) {
       var element = $(error_element);
 
       var parent_descriptions = element.parents("li.describe");
