@@ -97,7 +97,7 @@ module JsTestServer
       while !suite_finished?
         poll
         flush_console
-        sleep 0.25
+        sleep 0.1
       end
       if suite_passed?
         STDOUT.puts(PASSED_RUNNER_STATE.capitalize)
