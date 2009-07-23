@@ -1,0 +1,1 @@
+JsTestServer::Server::Runner.new.standalone_rackup(self)

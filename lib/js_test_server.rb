@@ -16,12 +16,8 @@ require "erector"
 Erector::Widget.prettyprint_default = true
 
 require "#{dir}/js_test_server/configuration"
-
-require "#{dir}/js_test_server/resources"
-require "#{dir}/js_test_server/representations"
 require "#{dir}/js_test_server/server"
 require "#{dir}/js_test_server/client"
-require "#{dir}/js_test_server/app"
 
 module JsTestServer
   class << self

@@ -5,4 +5,4 @@ $LOAD_PATH.unshift("#{dir}/../lib")
 
 require "js_test_server"
 JsTestServer::Server::DEFAULTS[:framework_name] = "jasmine"
-JsTestServer::Server.new.cli(*ARGV)
+JsTestServer::Server::Runner.new.cli(*ARGV)

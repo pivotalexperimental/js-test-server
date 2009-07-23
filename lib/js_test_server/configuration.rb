@@ -27,7 +27,7 @@ module JsTestServer
 
     def suite_representation_class
       if framework_name
-        JsTestServer::Representations::Suites.const_get(framework_name.gsub("-", "_").camelcase)
+        JsTestServer::Server::Representations::Suites.const_get(framework_name.gsub("-", "_").camelcase)
       end
     end
 
@@ -47,6 +47,10 @@ module JsTestServer
 
     def root_url
       "http://#{host}:#{port}"
+    end
+
+    def rackup_path
+      File.expand_path("#{File.dirname(__FILE__)}/server/standalone.ru")
     end
 
     protected

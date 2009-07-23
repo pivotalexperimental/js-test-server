@@ -17,7 +17,7 @@ end
 Sinatra::Application.use ShowTestExceptions
 Sinatra::Application.set :raise_errors, true
 
-Sinatra::Application.use(JsTestServer::App)
+Sinatra::Application.use(JsTestServer::Server::App)
 
 
 class Spec::ExampleGroup

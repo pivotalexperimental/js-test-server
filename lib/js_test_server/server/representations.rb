@@ -1,8 +1,6 @@
 dir = File.dirname(__FILE__)
 
-module JsTestServer
-  module Representations
-  end
+module JsTestServer::Server::Representations
 end
 
 require "#{dir}/representations/page.html"

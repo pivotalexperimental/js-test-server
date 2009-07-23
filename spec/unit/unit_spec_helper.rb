@@ -24,7 +24,7 @@ end
 Sinatra::Application.use ShowTestExceptions
 Sinatra::Application.set :raise_errors, true
 Sinatra::Application.set :show_exceptions, false
-JsTestServer::App.set :raise_errors, true
-JsTestServer::App.set :show_exceptions, false
+JsTestServer::Server::App.set :raise_errors, true
+JsTestServer::Server::App.set :show_exceptions, false
 
-Sinatra::Application.use(JsTestServer::App)
+Sinatra::Application.use(JsTestServer::Server::App)

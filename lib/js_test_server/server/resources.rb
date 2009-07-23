@@ -1,8 +1,6 @@
 dir = File.dirname(__FILE__)
 
-module JsTestServer
-  module Resources
-  end
+module JsTestServer::Server::Resources
 end
 
 require "#{dir}/resources/resource"

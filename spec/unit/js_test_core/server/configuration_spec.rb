@@ -1,9 +1,9 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../unit_spec_helper")
+require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
 
-module JsTestServer
+module JsTestServer::Server
   describe Configuration do
     attr_reader :result
-    
+
     before do
       @result = ""
     end
@@ -31,7 +31,7 @@ module JsTestServer
         Configuration.framework_path.should == framework_path
       end
     end
-    
+
     describe "#root_url" do
       it "returns the url of the site's root" do
         configuration = Configuration.new
