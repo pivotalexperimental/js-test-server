@@ -16,39 +16,6 @@ module JsTestServer
 
         def head_content
           core_js_files
-          script(raw(<<-JS), :type => "text/javascript")
-            (function($) {
-              var jsTestServerStatus = {"runner_state": "#{Client::RUNNING_RUNNER_STATE}", "console": ""};
-
-              JsTestServer.status = function() {
-                return JsTestServer.JSON.stringify(jsTestServerStatus);
-              };
-
-              $(Screw).bind('after', function() {
-                var error_text = $(".error").map(function(i, error_element) {
-                  var element = $(error_element);
-
-                  var parent_descriptions = element.parents("li.describe");
-                  var parent_description_text = [];
-
-                  for(var i=parent_descriptions.length-1; i >= 0; i--) {
-                    parent_description_text.push($(parent_descriptions[i]).find("h1").text());
-                  }
-
-                  var it_text = element.parents("li.it").find("h2").text();
-
-                  return parent_description_text.join(" ") + " " + it_text + ": " + element.text();
-                }).get().join("\\n");
-
-                jsTestServerStatus["console"] = error_text;
-                if(error_text) {
-                  jsTestServerStatus["runner_state"] = "#{Client::FAILED_RUNNER_STATE}";
-                } else {
-                  jsTestServerStatus["runner_state"] = "#{Client::PASSED_RUNNER_STATE}";
-                }
-              });
-            })(jQuery);
-          JS
           project_js_files
           link :rel => "stylesheet", :href => "/framework/screw.css"
           project_css_files
@@ -65,6 +32,7 @@ module JsTestServer
           script :src => "/framework/screw.matchers.js"
           script :src => "/framework/screw.events.js"
           script :src => "/framework/screw.behaviors.js"
+          script :src => "/js_test_server/screw_unit_driver.js"
         end
 
         def jquery_js_file

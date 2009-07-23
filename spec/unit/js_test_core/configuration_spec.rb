@@ -32,12 +32,6 @@ module JsTestServer
       end
     end
     
-    describe "#js_test_server_js_path" do
-      it "returns the path to js_test_server.js" do
-        ::File.read(Configuration.js_test_server_js_path).should include("function JsTestServer()")
-      end
-    end
-    
     describe "#root_url" do
       it "returns the url of the site's root" do
         configuration = Configuration.new

@@ -1,7 +1,7 @@
 module JsTestServer
   class Client
     RUNNING_RUNNER_STATE = "running"
-    PASSED_RUNNER_STATE = "success"
+    PASSED_RUNNER_STATE = "passed"
     FAILED_RUNNER_STATE = "failed"
     FINISHED_RUNNER_STATES = [PASSED_RUNNER_STATE, FAILED_RUNNER_STATE]
 

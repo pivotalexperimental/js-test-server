@@ -41,8 +41,8 @@ module JsTestServer
       @root_path = path
     end
 
-    def js_test_server_js_path
-      "#{library_root_dir}/public/js_test_server.js"
+    def js_test_server_root_path
+      "#{library_root_dir}/public"
     end
 
     def root_url
