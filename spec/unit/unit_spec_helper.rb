@@ -3,7 +3,7 @@ require "spec"
 require "spec/autorun"
 require "rack/test"
 require "rr"
-ARGV.push("-b")
+ARGV.push("-b", "--format", "nested")
 
 dir = File.dirname(__FILE__)
 LIBRARY_ROOT_DIR = File.expand_path("#{dir}/../..")
