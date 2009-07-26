@@ -19,7 +19,7 @@ class JsTestServer::Server::Representations::Page < Erector::Widget
   end
 
   def title_text
-    "Thin Rest"
+    "Js Test Server"
   end
 
   def body_content(&block)
@@ -28,11 +28,5 @@ class JsTestServer::Server::Representations::Page < Erector::Widget
 
   def path
     helpers.rack_request.path_info
-  end
-
-  def script_elements
-  end
-
-  def link_elements
   end
 end

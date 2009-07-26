@@ -57,15 +57,11 @@
     var request;
     try {
       request = new XMLHttpRequest();
-    }
-    catch(e) {
+    } catch(e) {
       try {
-        return new ActiveXObject("Msxml2.XMLHTTP");
-      }
-      catch(e) {
-        try {
-          return new ActiveXObject("Microsoft.XMLHTTP");
-        }
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch(e) {
+        request = new ActiveXObject("Microsoft.XMLHTTP");
       }
     };
 

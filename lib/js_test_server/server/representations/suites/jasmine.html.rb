@@ -17,11 +17,11 @@ class JsTestServer::Server::Representations::Suites::Jasmine < JsTestServer::Ser
   end
 
   def core_js_files
-    script :src => "/framework/jasmine.js"
-    script :src => "/framework/TrivialReporter.js"
-    script :src => "/framework/screw-jasmine-compat.js"
-    script :src => "/js_test_server.js"
-    script :src => "/js_test_server/jasmine_driver.js"
+    javascript :src => "/framework/jasmine.js"
+    javascript :src => "/framework/TrivialReporter.js"
+    javascript :src => "/framework/screw-jasmine-compat.js"
+    javascript :src => "/js_test_server.js"
+    javascript :src => "/js_test_server/jasmine_driver.js"
   end
 
   def body_content

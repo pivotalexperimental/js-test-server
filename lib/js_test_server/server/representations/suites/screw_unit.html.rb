@@ -23,15 +23,15 @@ class JsTestServer::Server::Representations::Suites::ScrewUnit < JsTestServer::S
   end
 
   def core_js_files
-    script :src => jquery_js_file
-    script :src => "/js_test_server.js"
-    script :src => "/framework/jquery.fn.js"
-    script :src => "/framework/jquery.print.js"
-    script :src => "/framework/screw.builder.js"
-    script :src => "/framework/screw.matchers.js"
-    script :src => "/framework/screw.events.js"
-    script :src => "/framework/screw.behaviors.js"
-    script :src => "/js_test_server/screw_unit_driver.js"
+    javascript :src => jquery_js_file
+    javascript :src => "/js_test_server.js"
+    javascript :src => "/framework/jquery.fn.js"
+    javascript :src => "/framework/jquery.print.js"
+    javascript :src => "/framework/screw.builder.js"
+    javascript :src => "/framework/screw.matchers.js"
+    javascript :src => "/framework/screw.events.js"
+    javascript :src => "/framework/screw.behaviors.js"
+    javascript :src => "/js_test_server/screw_unit_driver.js"
   end
 
   def jquery_js_file
