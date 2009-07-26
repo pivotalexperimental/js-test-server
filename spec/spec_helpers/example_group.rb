@@ -30,6 +30,10 @@ class Spec::ExampleGroup
     JsTestServer::Configuration.instance.framework_path = framework_path
   end
 
+  after(:each) do
+    JsTestServer::Server::Resources::RemoteControl.queue.clear
+  end
+
   def app
     Sinatra::Application
   end

@@ -4,6 +4,7 @@ class JsTestServer::Server::App < Sinatra::Base
   register(JsTestServer::Server::Resources::SpecFile.route_handler)
   register(JsTestServer::Server::Resources::File.route_handler)
   register(JsTestServer::Server::Resources::FrameworkFile.route_handler)
+  register(JsTestServer::Server::Resources::RemoteControl.route_handler)
   register(JsTestServer::Server::Resources::ImplementationsDeprecation.route_handler)
   register(JsTestServer::Server::Resources::NotFound.route_handler)
 end
