@@ -15,7 +15,6 @@ module JsTestServer
         end
 
         post "broadcasts" do
-          puts "#{__FILE__}:#{__LINE__}"
           self.class.queue << params["javascript"]
           [200, {'Content-Type' => "application/json"}, self.class.queue.to_json]
         end
