@@ -21,7 +21,7 @@
         }
         setTimeout(function() {
           self.poll();
-        }, 1000);
+        }, 100);
       };
     });
   };
