@@ -1,6 +1,6 @@
 (function() {
   JsTestServer.RemoteControl = function() {
-  }
+  };
 
   JsTestServer.RemoteControl.start = function() {
     var instance = new JsTestServer.RemoteControl();
