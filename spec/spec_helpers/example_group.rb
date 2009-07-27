@@ -15,6 +15,7 @@ class Spec::ExampleGroup
   
   include Rack::Test::Methods
   include BeHttp
+  include WaitFor
   attr_reader :framework_path, :spec_path, :root_path, :server, :connection
   before(:all) do
     dir = File.dirname(__FILE__)

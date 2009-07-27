@@ -16,30 +16,30 @@ module JsTestServer
           [200, {}, Representations::RemoteControlSubscriber.new.to_s]
         end
 
-        post "broadcasts" do
-          self.class.queue << params["javascript"]
+        post "commands" do
+          self.class.queue << {"javascript" => params["javascript"]}
           [200, {'Content-Type' => "application/json"}, self.class.queue.to_json]
         end
 
-        get "messages" do
+        get "commands" do
           if self.class.queue.empty? && Object.const_defined?(:Thin)
-            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_messages(Time.now)}
+            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_commands(Time.now)}
             throw :async
           else
-            do_get_messages
+            do_get_commands
           end
         end
 
         protected
-        def long_poll_do_get_messages(long_poll_start_time)
+        def long_poll_do_get_commands(long_poll_start_time)
           if long_poll_start_time && self.class.queue.empty?
-            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_messages(long_poll_start_time)}
+            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_commands(long_poll_start_time)}
           else
-            env[Thin::Request::ASYNC_CALLBACK].call(do_get_messages)
+            env[Thin::Request::ASYNC_CALLBACK].call(do_get_commands)
           end
         end
 
-        def do_get_messages
+        def do_get_commands
           queue_content = self.class.queue.dup
           self.class.queue.clear
           [200, {'Content-Type' => "application/json"}, queue_content.to_json]

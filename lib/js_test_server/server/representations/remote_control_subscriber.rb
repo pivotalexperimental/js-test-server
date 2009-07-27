@@ -9,7 +9,7 @@ module JsTestServer
         end
 
         def body_content
-          a "Messages", :href => Resources::RemoteControl.path("messages"), :id => "messages"
+          a "Commands", :href => Resources::RemoteControl.path("commands"), :id => "commands"
         end
       end
     end

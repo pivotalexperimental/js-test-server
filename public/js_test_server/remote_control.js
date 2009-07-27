@@ -13,11 +13,11 @@
 
   JsTestServer.RemoteControl.prototype.poll = function() {
     var self = this;
-    JsTestServer.xhrGet("/remote_control/messages", function(request) {
+    JsTestServer.xhrGet("/remote_control/commands", function(request) {
       if(request.status == 200) {
         var messages = eval(request.responseText);
         for(var i=0; i < messages.length; i++) {
-          eval(messages[i]);
+          eval(messages[i].javascript);
         }
         setTimeout(function() {
           self.poll();
