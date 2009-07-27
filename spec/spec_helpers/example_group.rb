@@ -32,7 +32,7 @@ class Spec::ExampleGroup
   end
 
   after(:each) do
-    JsTestServer::Server::Resources::RemoteControl.queue.clear
+    JsTestServer::Server::Resources::RemoteControl.queue = nil
   end
 
   def app

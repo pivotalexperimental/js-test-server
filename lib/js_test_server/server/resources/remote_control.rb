@@ -2,12 +2,44 @@ module JsTestServer
   module Server
     module Resources
       class RemoteControl < JsTestServer::Server::Resources::Resource
-        TIMEOUT = 30
-        POLL_STEP_PERIOD = 0.005
+        class Queue
+          def initialize
+            @items = []
+            @subscriber = nil
+          end
+          def push item
+            @items << item
+            notify_subscriber if @subscriber
+          end
+          alias :<< :push
+          def subscribe &blk
+            @subscriber = blk
+            notify_subscriber unless @items.empty?
+          end
+          def unsubscribe
+            @subscriber = nil
+          end
+          def clear
+            items, @items = @items, []
+            items
+          end
+          def to_a
+            @items
+          end
+          
+          protected
+
+          def notify_subscriber
+            @subscriber.call
+            unsubscribe
+          end
+        end
+
         class << self
           def queue
-            @queue ||= []
+            @queue ||= Queue.new
           end
+          attr_writer :queue
         end
 
         map "/remote_control"
@@ -18,12 +50,19 @@ module JsTestServer
 
         post "commands" do
           self.class.queue << {"javascript" => params["javascript"]}
-          [200, {'Content-Type' => "application/json"}, self.class.queue.to_json]
+          [200, {'Content-Type' => "application/json"}, self.class.queue.to_a.to_json]
         end
 
         get "commands" do
-          if self.class.queue.empty? && Object.const_defined?(:Thin)
-            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_commands(Time.now)}
+          if Object.const_defined?(:Thin)
+            subscribed = true
+            self.class.queue.subscribe do
+              subscribed = false
+              env[Thin::Request::ASYNC_CALLBACK].call(do_get_commands)
+            end
+            env[Thin::Request::ASYNC_CLOSE].callback do
+              self.class.queue.unsubscribe if subscribed
+            end
             throw :async
           else
             do_get_commands
@@ -31,17 +70,8 @@ module JsTestServer
         end
 
         protected
-        def long_poll_do_get_commands(long_poll_start_time)
-          if long_poll_start_time && self.class.queue.empty?
-            EM.add_timer(POLL_STEP_PERIOD) {long_poll_do_get_commands(long_poll_start_time)}
-          else
-            env[Thin::Request::ASYNC_CALLBACK].call(do_get_commands)
-          end
-        end
-
         def do_get_commands
-          queue_content = self.class.queue.dup
-          self.class.queue.clear
+          queue_content = self.class.queue.clear
           [200, {'Content-Type' => "application/json"}, queue_content.to_json]
         end
       end

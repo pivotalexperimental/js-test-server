@@ -17,6 +17,8 @@ require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/wait_for"
 require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/example_group"
 require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/fake_selenium_driver"
 require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/show_test_exceptions"
+require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/fake_deferrable"
+require "#{LIBRARY_ROOT_DIR}/spec/spec_helpers/mock_session"
 
 Spec::Runner.configure do |config|
   config.mock_with RR::Adapters::Rspec

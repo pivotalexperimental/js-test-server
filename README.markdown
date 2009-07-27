@@ -4,3 +4,6 @@ JsTestServer provides a command line runner and html suite file generation for y
 == Current supported frameworks
 * Jasmine
 * Screw Unit
+
+== Thanks To
+* Aman Gupta for advice and patch to the Remote Control
