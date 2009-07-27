@@ -76,6 +76,10 @@ module JsTestServer
         )
         selenium_client.start
         selenium_client.open([uri.path, uri.query].compact.join("?"))
+
+        at_exit do
+          selenium_client.stop
+        end
       end
 
       def wait_for_session_to_finish
