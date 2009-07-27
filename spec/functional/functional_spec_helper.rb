@@ -7,6 +7,7 @@ dir = File.dirname(__FILE__)
 LIBRARY_ROOT_DIR = File.expand_path("#{dir}/../..")
 require File.expand_path("#{dir}/../spec_helpers/be_http")
 require File.expand_path("#{dir}/../spec_helpers/show_test_exceptions")
+require File.expand_path("#{dir}/../spec_helpers/wait_for")
 require "#{dir}/functional_spec_server_starter"
 ARGV.push("-b")
 

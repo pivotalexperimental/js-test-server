@@ -6,18 +6,6 @@ $LOAD_PATH.unshift "#{dir}/../../lib"
 require "js_test_server"
 require "nokogiri"
 
-module WaitFor
-  extend self
-  def wait_for(time=5)
-    Timeout.timeout(time) do
-      loop do
-        value = yield
-        return value if value
-      end
-    end
-  end
-end
-
 class FunctionalSpecServerStarter
   include WaitFor
 
