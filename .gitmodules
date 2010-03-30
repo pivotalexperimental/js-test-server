@@ -1,3 +1,6 @@
 [submodule "lib/js_test_server/server/express"]
 	path = lib/js_test_server/server/express
 	url = git://github.com/visionmedia/express.git
+[submodule "node_specs/jasmine-node"]
+	path = node_specs/jasmine-node
+	url = git://github.com/mhevery/jasmine-node.git
