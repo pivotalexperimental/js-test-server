@@ -3,4 +3,4 @@
 	url = git://github.com/visionmedia/express.git
 [submodule "node_specs/jasmine-node"]
 	path = node_specs/jasmine-node
-	url = git://github.com/mhevery/jasmine-node.git
+	url = git://github.com/btakita/jasmine-node.git

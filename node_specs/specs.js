@@ -3,7 +3,8 @@ var jasmine = require('jasmine');
 var sys = require('sys');
 
 process.mixin(global, jasmine);
+require("./spec_helper");
 
-jasmine.executeSpecsInFolder('./js_test_core', function(runner, log){
+jasmine.executeSpecsInFolder(__dirname + '/js_test_core', function(runner, log){
   process.exit(runner.results().failedCount);
 }, true);
