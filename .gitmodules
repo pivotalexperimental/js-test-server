@@ -1,0 +1,3 @@
+[submodule "lib/js_test_server/server/express"]
+	path = lib/js_test_server/server/express
+	url = git://github.com/visionmedia/express.git
