@@ -17,26 +17,39 @@ var SpecHelper = {
   serverRoot: function() {
     return path.join(this.libRoot(), "js_test_server/app.js")
   },
+  serverPort: function() {
+    return 3000
+  },
   startServer: function() {
-    var proc = childProcess.spawn("node", [this.serverRoot()]);
+    var proc = childProcess.spawn("node", [this.serverRoot(), "--port=" + SpecHelper.serverPort()]);
+    var serverStarted = false;
     var dataListener = function(data) {
       if (/Express started at /.exec(data)) {
         serverStarted = true;
       }
     };
     proc.stdout.addListener("data", dataListener);
+    process.addListener('SIGINT', function() {
+      sys.puts("in SIGINT")
+      this.stopServer(proc)
+    })
 
     waitsFor(10000, function() {
       try {
         return serverStarted &&
           http.createClient(
-            process.env['JS_TEST_SERVER_PORT'], "localhost"
+            SpecHelper.serverPort(), "localhost"
           ).request("GET", "/", {"host": "localhost"});
       } catch(e) {
         return false;
       }
     });
     return proc;
+  },
+
+  stopServer: function(proc) {
+    proc.removeAllListeners();
+    proc.kill();
   }
 }
 global.SpecHelper = SpecHelper;
@@ -45,15 +58,12 @@ var DescribeHelper = {
   useServer: function(describe) {
     var proc;
     describe.beforeEach(function() {
-      process.env['JS_TEST_SERVER_PORT'] = 3000;
-
       var serverStarted = false;
       proc = SpecHelper.startServer();
     });
 
     describe.afterEach(function() {
-      proc.removeAllListeners();
-      proc.kill();
+      SpecHelper.stopServer(proc);
     });
   }
 }
