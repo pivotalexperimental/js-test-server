@@ -4,18 +4,14 @@ var sys = require('sys'),
 describe("/", function() {
   DescribeHelper.useServer(this);
 
-  it("renders a welcome message", function() {
-    var localhost = http.createClient(SpecHelper.serverPort(), "localhost");
-    var request = localhost.request("GET", "/", {"host": "localhost"});
+  it("renders a file from --root-path", function() {
     var body = "";
-    request.addListener('response', function (response) {
-      response.addListener("data", function (chunk) {
-        body += chunk;
-      });
+    SpecHelper.performRequest("GET", "/javascripts/foo.js", {"host": "localhost"}, function(_body) {
+      body = _body;
     });
-    request.end();
     waitsFor(10000, function() {
-      return body.indexOf("Welcome to the Js Test Server. Click the following link") > -1
+      sys.puts(expect(body).toMatch("Foo"))
+      return(body && expect(body).toMatch("Foo"));
     });
   });
 });

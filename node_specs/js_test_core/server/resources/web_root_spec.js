@@ -5,17 +5,14 @@ describe("/", function() {
   DescribeHelper.useServer(this);
 
   it("renders a welcome message", function() {
-    var localhost = http.createClient(SpecHelper.serverPort(), "localhost");
-    var request = localhost.request("GET", "/", {"host": "localhost"});
-    var body = "";
-    request.addListener('response', function (response) {
-      response.addListener("data", function (chunk) {
-        body += chunk;
-      });
+    var body;
+    SpecHelper.performRequest("GET", "/", {"host": "localhost"}, function(_body) {
+      body = _body;
     });
-    request.end();
     waitsFor(10000, function() {
-      return body.indexOf("Welcome to the Js Test Server. Click the following link") > -1
+      sys.puts(body)
+      return body;
     });
+    expect(body).toMatch("Welcome to the Js Test Server. Click the following link")
   });
 });

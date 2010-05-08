@@ -32,6 +32,21 @@ var SpecHelper = {
   frameworkName: function() {
     return "jasmine"
   },
+  performRequest: function(method, path, params, callback) {
+    var localhost = http.createClient(SpecHelper.serverPort(), "localhost");
+    var request = localhost.request("GET", "/", {"host": "localhost"});
+    var body = "";
+    request.addListener('response', function (response) {
+      response.addListener("data", function (chunk) {
+        body += chunk;
+      });
+      response.addListener('end', function () {
+        callback(body);
+      });
+    });
+    request.end();
+  },
+
   startServer: function() {
     var proc = childProcess.spawn(
       "node", [
@@ -49,10 +64,6 @@ var SpecHelper = {
       }
     };
     proc.stdout.addListener("data", dataListener);
-    process.addListener('SIGINT', function() {
-      sys.puts("in SIGINT")
-      this.stopServer(proc)
-    })
 
     waitsFor(10000, function() {
       try {
