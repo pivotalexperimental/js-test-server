@@ -20,8 +20,28 @@ var SpecHelper = {
   serverPort: function() {
     return 3000
   },
+  specPath: function() {
+    return path.join(__dirname, "../spec/example_spec")
+  },
+  rootPath: function() {
+    return path.join(__dirname, "../spec/example_root")
+  },
+  frameworkPath: function() {
+    return path.join(__dirname, "jasmine-node/lib/jasmine/jasmine-0.10.1.js")
+  },
+  frameworkName: function() {
+    return "jasmine"
+  },
   startServer: function() {
-    var proc = childProcess.spawn("node", [this.serverRoot(), "--port=" + SpecHelper.serverPort()]);
+    var proc = childProcess.spawn(
+      "node", [
+        this.serverRoot(),
+        "--port", SpecHelper.serverPort(),
+        "--spec-path", SpecHelper.specPath(),
+        "--root-path", SpecHelper.rootPath(),
+        "--framework-path", SpecHelper.frameworkPath(),
+        "--framework-name", SpecHelper.frameworkName()
+    ]);
     var serverStarted = false;
     var dataListener = function(data) {
       if (/Express started at /.exec(data)) {
