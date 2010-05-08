@@ -1,8 +1,15 @@
-require.paths.push("./jasmine-node/lib");
-var jasmine = require('jasmine');
-var sys = require('sys');
+var sys = require('sys'),
+    path = require("path");
 
-process.mixin(global, jasmine);
+require.paths.unshift(
+  path.join(path.dirname(__filename), "../lib"),
+  path.join(path.dirname(__filename), "jasmine-node/lib")
+);
+require("js_test_server");
+require("underscore");
+var jasmine = require('jasmine');
+
+_(global).extend(jasmine);
 require("./spec_helper");
 
 jasmine.executeSpecsInFolder(__dirname + '/js_test_core', function(runner, log){

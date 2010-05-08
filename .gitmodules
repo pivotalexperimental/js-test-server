@@ -1,6 +1,9 @@
-[submodule "lib/js_test_server/server/express"]
-	path = lib/js_test_server/server/express
-	url = git://github.com/visionmedia/express.git
 [submodule "node_specs/jasmine-node"]
 	path = node_specs/jasmine-node
 	url = git://github.com/btakita/jasmine-node.git
+[submodule "vendor/underscore"]
+	path = vendor/underscore
+	url = http://github.com/documentcloud/underscore.git
+[submodule "vendor/express"]
+	path = vendor/express
+	url = git://github.com/visionmedia/express.git
