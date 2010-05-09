@@ -10,9 +10,9 @@ describe("/", function() {
       body = _body;
     });
     waitsFor(10000, function() {
-      sys.puts(body)
-      return body;
+      return body && (
+        expect(body).toMatch("Welcome to the Js Test Server. Click the following link") || true
+      )
     });
-    expect(body).toMatch("Welcome to the Js Test Server. Click the following link")
   });
 });
