@@ -2,17 +2,20 @@ var sys = require('sys'),
     http = require('http');
 
 describe("GET /javascripts/foo.js - a file", function() {
-  DescribeHelper.useServer(this);
-
-  it("renders a file from --root-path", function() {
-    var body = "";
-    SpecHelper.performRequest("GET", "/javascripts/foo.js?foo=bar", {"host": "localhost"}, function(_body) {
-      body = _body;
+  it("renders a file the given path appended to --root-path", function() {
+    SpecHelper.performRequest("GET", "/javascripts/foo.js", {"host": "localhost"}, function(body) {
+      sys.puts(body);
+      expect(body).toMatch("Foo")
     });
-    waitsFor(10000, function() {
-      return body && (
-        expect(body).toMatch("Foo") || true
-      )
+  });
+});
+
+describe("GET /javascripts - a directory", function() {
+  it("renders the list of files in the directory with the give path appended to --root-path", function() {
+    SpecHelper.performRequest("GET", "/javascripts", {"host": "localhost"}, function(body) {
+      expect(body).toMatch("/javascripts/foo.js")
+      expect(body).toMatch("/javascripts/large_file.js")
+      expect(body).toMatch("/javascripts/subdir")
     });
   });
 });

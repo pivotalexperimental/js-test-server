@@ -10,3 +10,6 @@
 [submodule "vendor/trollopjs"]
 	path = vendor/trollopjs
 	url = http://github.com/bentomas/trollopjs.git
+[submodule "vendor/js-xml-builder"]
+	path = vendor/js-xml-builder
+	url = git://github.com/btakita/js-xml-builder.git

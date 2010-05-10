@@ -2,12 +2,22 @@ var path = require("path"),
   sys = require("sys"),
   childProcess = require("child_process"),
   http = require('http');
+
 var jsTestServerDir = path.join(path.dirname(__filename), "../lib");
 require.paths.push(jsTestServerDir);
 
+require.paths.unshift(
+  path.join(path.dirname(__filename), "../lib"),
+  path.join(path.dirname(__filename), "jasmine-node/lib")
+  );
 require("js_test_server");
+require("underscore");
+
+var jasmine = require('jasmine');
+_(global).extend(jasmine);
 
 var SpecHelper = {
+  defaultPath: process.ARGV[1],
   projectRoot: function() {
     return path.join(__dirname, "..");
   },
@@ -32,51 +42,53 @@ var SpecHelper = {
   frameworkName: function() {
     return "jasmine"
   },
+
+  startSpecs: function(specPath) {
+    if (!specPath) {
+      specPath = SpecHelper.defaultPath
+    }
+    sys.puts("startSpecs");
+    var self = this
+    sys.puts("Starting server");
+    var proc = childProcess.spawn(
+      "node", [
+      this.serverRoot(),
+      "--port", SpecHelper.serverPort(),
+      "--spec-path", SpecHelper.specPath(),
+      "--root-path", SpecHelper.rootPath(),
+      "--framework-path", SpecHelper.frameworkPath(),
+      "--framework-name", SpecHelper.frameworkName()
+    ]);
+    var serverStarted = false;
+    proc.stdout.addListener("data", function(data) {
+      sys.puts(data);
+      if (/Express started at/.exec(data)) {
+        jasmine.executeSpecsInFolder(specPath, function(runner, log) {
+          sys.puts("finished specs");
+          self.stopServer(proc);
+          process.exit(runner.results().failedCount);
+        }, true)
+      }
+    });
+    sys.puts("finished");
+  },
+
   performRequest: function(method, path, params, callback) {
     var localhost = http.createClient(SpecHelper.serverPort(), "localhost");
     var request = localhost.request(method, path, params);
-    var body = "";
+    var body = "", responseFinished = false;
     request.addListener('response', function (response) {
       response.addListener("data", function (chunk) {
         body += chunk;
       });
       response.addListener('end', function () {
-        callback(body);
+        responseFinished = true
       });
     });
     request.end();
-  },
-
-  startServer: function() {
-    var proc = childProcess.spawn(
-      "node", [
-        this.serverRoot(),
-        "--port", SpecHelper.serverPort(),
-        "--spec-path", SpecHelper.specPath(),
-        "--root-path", SpecHelper.rootPath(),
-        "--framework-path", SpecHelper.frameworkPath(),
-        "--framework-name", SpecHelper.frameworkName()
-    ]);
-    var serverStarted = false;
-    var dataListener = function(data) {
-      sys.puts("> " + data);
-      if (/Express started at /.exec(data)) {
-        serverStarted = true;
-      }
-    };
-    proc.stdout.addListener("data", dataListener);
-
     waitsFor(10000, function() {
-      try {
-        return serverStarted &&
-          http.createClient(
-            SpecHelper.serverPort(), "localhost"
-          ).request("GET", "/", {"host": "localhost"});
-      } catch(e) {
-        return false;
-      }
+      return responseFinished && (callback(body) || true)
     });
-    return proc;
   },
 
   stopServer: function(proc) {
@@ -87,16 +99,9 @@ var SpecHelper = {
 global.SpecHelper = SpecHelper;
 
 var DescribeHelper = {
-  useServer: function(describe) {
-    var proc;
-    describe.beforeEach(function() {
-      var serverStarted = false;
-      proc = SpecHelper.startServer();
-    });
-
-    describe.afterEach(function() {
-      SpecHelper.stopServer(proc);
-    });
-  }
 }
 global.DescribeHelper = DescribeHelper;
+
+if ((new RegExp(".+_spec.js$")).exec(process.ARGV[1])) {
+  SpecHelper.startSpecs();
+}
