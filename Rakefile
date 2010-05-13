@@ -22,14 +22,15 @@ def run_suite
 end
 
 PKG_NAME = "js-test-server"
-PKG_VERSION = "0.2.1"
+PKG_VERSION = "0.2.2"
 PKG_FILES = FileList[
   '[A-Z]*',
   '*.rb',
   'lib/**/*.rb',
   'core/**',
   'bin/**',
-  'spec/**/*.rb'
+  'spec/**/*.rb',
+  'vendor/**/*.rb'
 ]
 
 spec = Gem::Specification.new do |s|
