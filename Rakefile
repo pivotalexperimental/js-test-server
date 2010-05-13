@@ -16,6 +16,12 @@ task(:spec) do
   run_suite
 end
 
+desc "Tag the release and push"
+task :releas do
+  tag_name = "v#{PKG_VERSION}"
+  system("git tag #{tag_name} && git push origin #{tag_name}")
+end
+
 def run_suite
   dir = File.dirname(__FILE__)
   system("ruby #{dir}/spec/spec_suite.rb") || raise("Example Suite failed")
