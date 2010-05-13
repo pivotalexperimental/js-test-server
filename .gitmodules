@@ -1,0 +1,6 @@
+[submodule "spec/frameworks/jasmine"]
+	path = spec/frameworks/jasmine
+	url = git://github.com/pivotal/jasmine.git
+[submodule "spec/frameworks/screw-unit"]
+	path = spec/frameworks/screw-unit
+	url = git://github.com/pivotal/screw-unit.git

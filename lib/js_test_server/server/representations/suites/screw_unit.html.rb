@@ -7,7 +7,8 @@ class JsTestServer::Server::Representations::Suites::ScrewUnit < JsTestServer::S
     attr_writer :jquery_js_file
   end
 
-  needs :spec_files
+  needs :spec_files, :framework_path
+  attr_reader :spec_files, :framework_path
 
   def title_text
     "Screw Unit suite"

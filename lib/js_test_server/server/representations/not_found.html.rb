@@ -1,5 +1,6 @@
 class JsTestServer::Server::Representations::NotFound < JsTestServer::Server::Representations::Page
   needs :message
+  attr_reader :message
   protected
 
   def body_content

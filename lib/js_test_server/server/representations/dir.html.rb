@@ -1,5 +1,6 @@
 class JsTestServer::Server::Representations::Dir < JsTestServer::Server::Representations::Page
   needs :relative_path, :absolute_path
+  attr_reader :relative_path, :absolute_path
   protected
 
   def body_content

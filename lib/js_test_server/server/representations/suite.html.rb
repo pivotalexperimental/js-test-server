@@ -18,6 +18,7 @@ class JsTestServer::Server::Representations::Suite < JsTestServer::Server::Repre
   end
 
   needs :spec_files
+  attr_reader :spec_files
   protected
 
   def title_text

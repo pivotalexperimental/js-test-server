@@ -1,5 +1,7 @@
 class JsTestServer::Server::Representations::Suites::Jasmine < JsTestServer::Server::Representations::Suite
-  needs :spec_files
+  needs :spec_files, :framework_path
+  attr_reader :spec_files, :framework_path
+
   def title_text
     "Jasmine suite"
   end
@@ -17,9 +19,9 @@ class JsTestServer::Server::Representations::Suites::Jasmine < JsTestServer::Ser
   end
 
   def core_js_files
-    javascript :src => "/framework/jasmine.js"
+    jasmine_file = File.basename(Dir["#{framework_path}/jasmine*.js"].last)
+    javascript :src => "/framework/#{jasmine_file}"
     javascript :src => "/framework/TrivialReporter.js"
-    javascript :src => "/framework/screw-jasmine-compat.js"
     javascript :src => "/js_test_server.js"
     javascript :src => "/js_test_server/jasmine_driver.js"
   end
