@@ -1,10 +1,6 @@
 class JsTestServer::Server::Views::Suites::ScrewUnit < JsTestServer::Server::Views::Suite
   class << self
-    def jquery_js_file
-      @jquery_js_file ||= "/framework/jquery-1.3.2.js"
-    end
-
-    attr_writer :jquery_js_file
+    attr_accessor :jquery_js_file
   end
 
   needs :spec_files, :framework_path
@@ -36,7 +32,10 @@ class JsTestServer::Server::Views::Suites::ScrewUnit < JsTestServer::Server::Vie
   end
 
   def jquery_js_file
-    self.class.jquery_js_file
+    self.class.jquery_js_file || (
+      (jquery_path = Dir["#{framework_path}/jquery-*.js"].sort.last) &&
+        "/framework/#{File.basename(jquery_path)}"
+    )
   end
 
   def body_content

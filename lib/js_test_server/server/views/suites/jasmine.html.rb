@@ -19,7 +19,7 @@ class JsTestServer::Server::Views::Suites::Jasmine < JsTestServer::Server::Views
   end
 
   def core_js_files
-    jasmine_file = File.basename(Dir["#{framework_path}/jasmine*.js"].last)
+    jasmine_file = File.basename(Dir["#{framework_path}/jasmine*.js"].sort.last)
     javascript :src => "/framework/#{jasmine_file}"
     javascript :src => "/framework/TrivialReporter.js"
     javascript :src => "/js_test_server.js"
