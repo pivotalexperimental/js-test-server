@@ -26,9 +26,8 @@ PKG_VERSION = "0.2.2"
 PKG_FILES = FileList[
   '[A-Z]*',
   '*.rb',
-  'lib/**/*.rb',
-  'core/**',
-  'bin/**',
+  'lib/**/**',
+  'bin/**/**',
   'spec/**/*.rb',
   'vendor/**/*.rb'
 ]
