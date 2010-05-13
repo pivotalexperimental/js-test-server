@@ -1,4 +1,4 @@
-class JsTestServer::Server::Representations::NotFound < JsTestServer::Server::Representations::Page
+class JsTestServer::Server::Views::NotFound < JsTestServer::Server::Views::Page
   needs :message
   attr_reader :message
   protected

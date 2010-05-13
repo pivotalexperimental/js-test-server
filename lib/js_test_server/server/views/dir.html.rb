@@ -1,4 +1,4 @@
-class JsTestServer::Server::Representations::Dir < JsTestServer::Server::Representations::Page
+class JsTestServer::Server::Views::Dir < JsTestServer::Server::Views::Page
   needs :relative_path, :absolute_path
   attr_reader :relative_path, :absolute_path
   protected

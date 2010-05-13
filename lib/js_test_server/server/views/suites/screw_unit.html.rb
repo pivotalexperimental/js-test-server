@@ -1,4 +1,4 @@
-class JsTestServer::Server::Representations::Suites::ScrewUnit < JsTestServer::Server::Representations::Suite
+class JsTestServer::Server::Views::Suites::ScrewUnit < JsTestServer::Server::Views::Suite
   class << self
     def jquery_js_file
       @jquery_js_file ||= "/framework/jquery-1.3.2.js"

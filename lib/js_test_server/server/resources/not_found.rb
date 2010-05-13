@@ -19,7 +19,7 @@ class JsTestServer::Server::Resources::NotFound < JsTestServer::Server::Resource
   end
 
   def call
-    body = Representations::NotFound.new(:message => "File #{request.path_info} not found").to_s
+    body = Views::NotFound.new(:message => "File #{request.path_info} not found").to_s
     [ 404, { "Content-Type" => "text/html" }, body ]
   end
 end

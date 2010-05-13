@@ -27,7 +27,7 @@ module JsTestServer
 
     def suite_representation_class
       if framework_name
-        JsTestServer::Server::Representations::Suites.const_get(framework_name.gsub("-", "_").camelcase)
+        JsTestServer::Server::Views::Suites.const_get(framework_name.gsub("-", "_").camelcase)
       end
     end
 

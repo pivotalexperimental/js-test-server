@@ -10,5 +10,5 @@ end
 dir = File.dirname(__FILE__)
 require "#{dir}/server/runner"
 require "#{dir}/server/resources"
-require "#{dir}/server/representations"
+require "#{dir}/server/views"
 require "#{dir}/server/app"

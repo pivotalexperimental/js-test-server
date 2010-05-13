@@ -1,4 +1,4 @@
-class JsTestServer::Server::Representations::Suite < JsTestServer::Server::Representations::Page
+class JsTestServer::Server::Views::Suite < JsTestServer::Server::Views::Page
   class << self
     def project_js_files
       @@project_js_files ||= []

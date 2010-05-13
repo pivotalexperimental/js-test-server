@@ -43,7 +43,7 @@ module JsTestServer::Server
             "--port", "8081"
           )
 
-          JsTestServer::Configuration.instance.suite_representation_class.should == JsTestServer::Server::Representations::Suites::ScrewUnit
+          JsTestServer::Configuration.instance.suite_representation_class.should == JsTestServer::Server::Views::Suites::ScrewUnit
         end
       end
 

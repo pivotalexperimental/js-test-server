@@ -1,4 +1,4 @@
-class JsTestServer::Server::Representations::Suites::Jasmine < JsTestServer::Server::Representations::Suite
+class JsTestServer::Server::Views::Suites::Jasmine < JsTestServer::Server::Views::Suite
   needs :spec_files, :framework_path
   attr_reader :spec_files, :framework_path
 
