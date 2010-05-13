@@ -4,6 +4,7 @@ require 'rake/contrib/rubyforgepublisher'
 require 'rake/clean'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'bundler'
 
 desc "Runs the Rspec suite"
 task(:default) do
@@ -56,10 +57,11 @@ spec = Gem::Specification.new do |s|
   s.email = "brian@pivotallabs.com"
   s.homepage = "http://pivotallabs.com"
   s.rubyforge_project = "pivotalrb"
-  s.add_dependency('Selenium')
-  s.add_dependency('thin', '1.2.7')
-  s.add_dependency('erector', '0.7.2')
-  s.add_dependency('selenium-client', '1.2.18')
+  Bundler::Definition.from_gemfile("#{File.dirname(__FILE__)}/Gemfile").dependencies.select do |dependency|
+    dependency.groups.include?(:gem)
+  end.each do |dependency|
+    s.add_dependency(dependency.name, dependency.version_requirements)
+  end
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
