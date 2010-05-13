@@ -17,7 +17,7 @@ task(:spec) do
 end
 
 desc "Tag the release and push"
-task :releas do
+task :release do
   tag_name = "v#{PKG_VERSION}"
   system("git tag #{tag_name} && git push origin #{tag_name}")
 end
