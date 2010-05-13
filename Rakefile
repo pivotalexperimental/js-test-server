@@ -16,17 +16,12 @@ task(:spec) do
   run_suite
 end
 
-desc "Copies the trunk to a tag with the name of the current release"
-task(:tag_release) do
-  tag_release
-end
-
 def run_suite
   dir = File.dirname(__FILE__)
   system("ruby #{dir}/spec/spec_suite.rb") || raise("Example Suite failed")
 end
 
-PKG_NAME = "js_test_server"
+PKG_NAME = "js-test-server"
 PKG_VERSION = "0.2.0"
 PKG_FILES = FileList[
   '[A-Z]*',
@@ -48,13 +43,11 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.has_rdoc = true
-  s.extra_rdoc_files = [ "README", "CHANGES" ]
-  s.rdoc_options = ["--main", "README", "--inline-source", "--line-numbers"]
 
   s.test_files = Dir.glob('spec/*_spec.rb')
   s.require_path = 'lib'
   s.author = "Brian Takita"
-  s.email = "brian@pivotallabs.com"
+  s.email = "brian.takita@gmail.com"
   s.homepage = "http://pivotallabs.com"
   s.rubyforge_project = "pivotalrb"
   Bundler::Definition.from_gemfile("#{File.dirname(__FILE__)}/Gemfile").dependencies.select do |dependency|
@@ -67,10 +60,4 @@ end
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
-end
-
-def tag_release
-  dashed_version = PKG_VERSION.gsub('.', '-')
-  svn_user = "#{ENV["SVN_USER"]}@" || ""
-  `svn cp svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/trunk svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/tags/REL-#{dashed_version} -m 'Version #{PKG_VERSION}'`
 end
