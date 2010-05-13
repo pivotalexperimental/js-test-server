@@ -22,7 +22,7 @@ def run_suite
 end
 
 PKG_NAME = "js-test-server"
-PKG_VERSION = "0.2.0"
+PKG_VERSION = "0.2.1"
 PKG_FILES = FileList[
   '[A-Z]*',
   '*.rb',
@@ -45,6 +45,9 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = true
 
   s.test_files = Dir.glob('spec/*_spec.rb')
+  s.executables = Dir.glob('bin/*').map do |file|
+    File.basename(file)
+  end
   s.require_path = 'lib'
   s.author = "Brian Takita"
   s.email = "brian.takita@gmail.com"
