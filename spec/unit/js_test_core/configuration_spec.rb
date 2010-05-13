@@ -1,6 +1,6 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../unit_spec_helper")
+require File.expand_path("#{File.dirname(__FILE__)}/../unit_spec_helper")
 
-module JsTestServer::Server
+module JsTestServer
   describe Configuration do
     attr_reader :result
 
@@ -8,7 +8,7 @@ module JsTestServer::Server
       @result = ""
     end
 
-    describe "#spec_root" do
+    describe "#spec_path" do
       it "returns the Dir " do
         Configuration.spec_path.should == spec_path
       end
