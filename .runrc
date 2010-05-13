@@ -1,0 +1,4 @@
+#!/bin/bash
+# To use this file, add `run` to your path (http://github.com/btakita/run).
+file=$1
+if [[ $file =~ .+_spec.js$ ]]; then exec node ./node_specs/specs.js $@; fi

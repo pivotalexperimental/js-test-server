@@ -63,7 +63,7 @@ var SpecHelper = {
     proc.stdout.addListener("data", function(data) {
       sys.puts(data);
       if (/Express started at/.exec(data)) {
-        jasmine.executeSpecsInFolder(specPath, function(runner, log) {
+        jasmine.executeSpecs(specPath, function(runner, log) {
           sys.puts("finished specs");
           self.stopServer(proc);
           process.exit(runner.results().failedCount);
