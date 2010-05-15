@@ -64,13 +64,10 @@ var SpecHelper = {
       sys.puts(data);
       if (/Express started at/.exec(data)) {
         jasmine.executeSpecs(specPath, function(runner, log) {
-          sys.puts("finished specs");
           self.stopServer(proc);
-          process.exit(runner.results().failedCount);
         }, true)
       }
     });
-    sys.puts("finished");
   },
 
   performRequest: function(method, path, params, callback) {
