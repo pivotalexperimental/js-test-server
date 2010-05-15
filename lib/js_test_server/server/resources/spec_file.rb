@@ -38,7 +38,7 @@ class JsTestServer::Server::Resources::SpecFile < JsTestServer::Server::Resource
   end
 
   def render_spec(spec_files)
-    JsTestServer.suite_representation_class.new(:spec_files => spec_files).to_s
+    JsTestServer.suite_view_class.new(:spec_files => spec_files, :framework_path => framework_path).to_s
   end
 
   def absolute_path

@@ -20,17 +20,25 @@ Sinatra::Application.set :raise_errors, true
 
 Sinatra::Application.use(JsTestServer::Server::App)
 
-
 class Spec::ExampleGroup
   include WaitFor
 
   def self.start_servers(framework_name)
     before(:all) do
-      unless SeleniumRC::Server.service_is_running?
-        Thread.start do
-          SeleniumRC::Server.boot
+      server = SeleniumRC::Server.new("0.0.0.0", "4444")
+      unless server.service_is_running?
+        worker = fork do
+          server.boot
+          exit!
         end
       end
+      trap("INT") do
+        server.stop
+      end
+      at_exit do
+        server.stop
+      end
+
       FunctionalSpecServerStarter.new(framework_name).call
       TCPSocket.wait_for_service :host => "0.0.0.0", :port => "4444"
     end

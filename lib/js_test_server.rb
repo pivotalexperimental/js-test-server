@@ -1,8 +1,3 @@
-require "rubygems"
-gem "thin", ">=1.2.1"
-gem "erector", ">=0.6.7"
-gem "selenium-client"
-
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift File.expand_path("#{dir}/../vendor/lucky-luciano/lib")
 require "lucky_luciano"

@@ -45,7 +45,7 @@ module JsTestServer
         map "/remote_control"
 
         get "subscriber" do
-          [200, {}, Representations::RemoteControlSubscriber.new.to_s]
+          [200, {}, Views::RemoteControlSubscriber.new.to_s]
         end
 
         post "commands" do

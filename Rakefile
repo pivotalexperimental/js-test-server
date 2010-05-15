@@ -4,6 +4,7 @@ require 'rake/contrib/rubyforgepublisher'
 require 'rake/clean'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'bundler'
 
 desc "Runs the Rspec suite"
 task(:default) do
@@ -15,9 +16,10 @@ task(:spec) do
   run_suite
 end
 
-desc "Copies the trunk to a tag with the name of the current release"
-task(:tag_release) do
-  tag_release
+desc "Tag the release and push"
+task :release do
+  tag_name = "v#{PKG_VERSION}"
+  system("git tag #{tag_name} && git push origin #{tag_name}")
 end
 
 def run_suite
@@ -25,15 +27,15 @@ def run_suite
   system("ruby #{dir}/spec/spec_suite.rb") || raise("Example Suite failed")
 end
 
-PKG_NAME = "js_test_server"
-PKG_VERSION = "0.2.0"
+PKG_NAME = "js-test-server"
+PKG_VERSION = "0.2.5"
 PKG_FILES = FileList[
   '[A-Z]*',
   '*.rb',
-  'lib/**/*.rb',
-  'core/**',
-  'bin/**',
-  'spec/**/*.rb'
+  'lib/**/**',
+  'bin/**/**',
+  'spec/**/*.rb',
+  'vendor/**/*.rb'
 ]
 
 spec = Gem::Specification.new do |s|
@@ -47,27 +49,24 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.has_rdoc = true
-  s.extra_rdoc_files = [ "README", "CHANGES" ]
-  s.rdoc_options = ["--main", "README", "--inline-source", "--line-numbers"]
 
   s.test_files = Dir.glob('spec/*_spec.rb')
+  s.executables = Dir.glob('bin/*').map do |file|
+    File.basename(file)
+  end
   s.require_path = 'lib'
   s.author = "Brian Takita"
-  s.email = "brian@pivotallabs.com"
+  s.email = "brian.takita@gmail.com"
   s.homepage = "http://pivotallabs.com"
   s.rubyforge_project = "pivotalrb"
-  s.add_dependency('Selenium')
-  s.add_dependency('thin', '=0.8.1')
-  s.add_dependency('erector')
+  Bundler::Definition.from_gemfile("#{File.dirname(__FILE__)}/Gemfile").dependencies.select do |dependency|
+    dependency.groups.include?(:gem)
+  end.each do |dependency|
+    s.add_dependency(dependency.name, dependency.version_requirements)
+  end
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
-end
-
-def tag_release
-  dashed_version = PKG_VERSION.gsub('.', '-')
-  svn_user = "#{ENV["SVN_USER"]}@" || ""
-  `svn cp svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/trunk svn+ssh://#{svn_user}rubyforge.org/var/svn/pivotalrb/js_test_server/tags/REL-#{dashed_version} -m 'Version #{PKG_VERSION}'`
 end

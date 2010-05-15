@@ -151,7 +151,7 @@
  such that only members with keys listed in the replacer array are
  stringified.
 
- Values that do not have JSON representations, such as undefined or
+ Values that do not have JSON views, such as undefined or
  functions, will not be serialized. Such values in objects will be
  dropped; in arrays they will be replaced with null. You can use
  a replacer function to replace those with JSON values.

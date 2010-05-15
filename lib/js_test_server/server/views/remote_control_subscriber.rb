@@ -1,7 +1,7 @@
 module JsTestServer
   module Server
-    module Representations
-      class RemoteControlSubscriber < JsTestServer::Server::Representations::Page
+    module Views
+      class RemoteControlSubscriber < JsTestServer::Server::Views::Page
         def head_content
           javascript :src => "/js_test_server.js"
           javascript :src => "/js_test_server/remote_control.js"

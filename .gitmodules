@@ -13,3 +13,9 @@
 [submodule "vendor/js-xml-builder"]
 	path = vendor/js-xml-builder
 	url = git://github.com/btakita/js-xml-builder.git
+[submodule "spec/frameworks/jasmine"]
+	path = spec/frameworks/jasmine
+	url = git://github.com/pivotal/jasmine.git
+[submodule "spec/frameworks/screw-unit"]
+	path = spec/frameworks/screw-unit
+	url = git://github.com/pivotal/screw-unit.git

@@ -47,7 +47,7 @@ class FunctionalSpecServerStarter
   end
 
   def framework_path
-    File.expand_path("#{dir}/../../../#{framework_name}/lib")
+    File.expand_path("#{dir}/../frameworks/#{framework_name}/lib")
   end
 
   def spec_path

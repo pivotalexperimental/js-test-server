@@ -6,8 +6,8 @@ module JsTestServer::Server::Resources
       attr_reader :doc
       before do
         JsTestServer.framework_name = "screw-unit"
-        JsTestServer::Server::Representations::Suite.project_js_files += ["/javascripts/test_file_1.js", "/javascripts/test_file_2.js"]
-        JsTestServer::Server::Representations::Suite.project_css_files += ["/stylesheets/test_file_1.css", "/stylesheets/test_file_2.css"]
+        JsTestServer::Server::Views::Suite.project_js_files += ["/javascripts/test_file_1.js", "/javascripts/test_file_2.js"]
+        JsTestServer::Server::Views::Suite.project_css_files += ["/stylesheets/test_file_1.css", "/stylesheets/test_file_2.css"]
 
         response = get(SpecFile.path("/failing_spec"))
         response.should be_http( 200, {}, "" )
@@ -16,8 +16,8 @@ module JsTestServer::Server::Resources
       end
 
       after do
-        JsTestServer::Server::Representations::Suite.project_js_files.clear
-        JsTestServer::Server::Representations::Suite.project_css_files.clear
+        JsTestServer::Server::Views::Suite.project_js_files.clear
+        JsTestServer::Server::Views::Suite.project_css_files.clear
       end
 
       it "renders project js files" do

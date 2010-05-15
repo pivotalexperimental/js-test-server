@@ -32,6 +32,18 @@ class JsTestServer::Server::Runner
         :type => Integer,
         :default => DEFAULTS[:port]
       )
+      opt(
+        :javascript_files,
+        "The javascript files under test",
+        :type => String,
+        :default => ""
+      )
+      opt(
+        :css_files,
+        "The css files under test",
+        :type => String,
+        :default => ""
+      )
     end
 
     JsTestServer.port = opts[:port]
@@ -39,6 +51,9 @@ class JsTestServer::Server::Runner
     JsTestServer.framework_path = opts[:framework_path]
     JsTestServer.spec_path = opts[:spec_path]
     JsTestServer.root_path = opts[:root_path]
+    suite_view_class = JsTestServer::Configuration.instance.suite_view_class
+    suite_view_class.project_js_files.push(*opts[:javascript_files].split(","))
+    suite_view_class.project_css_files.push(*opts[:css_files].split(","))
     STDOUT.puts "root-path is #{JsTestServer.root_path}"
     STDOUT.puts "spec-path is #{JsTestServer.spec_path}"
     start

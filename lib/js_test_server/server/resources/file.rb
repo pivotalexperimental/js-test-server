@@ -49,7 +49,7 @@ class JsTestServer::Server::Resources::File < JsTestServer::Server::Resources::R
   end
 
   def render_dir
-    JsTestServer::Server::Representations::Dir.new(:relative_path => relative_path, :absolute_path => absolute_path).to_s
+    JsTestServer::Server::Views::Dir.new(:relative_path => relative_path, :absolute_path => absolute_path).to_s
   end
 
   def render_file

@@ -21,7 +21,7 @@ module JsTestServer::Server
 
       
       context "when the --framework-name and --framework-path are set" do
-        it "starts the server and sets SpecFile::suite_representation_class to be the ScrewUnit suite" do
+        it "starts the server and sets SpecFile::suite_view_class to be the ScrewUnit suite" do
           project_spec_dir = File.expand_path("#{File.dirname(__FILE__)}/../../..")
 
           mock.proxy(Thin::Runner).new(["--port", "8081", "--rackup", rackup_path, "start"]) do |runner|
@@ -43,7 +43,43 @@ module JsTestServer::Server
             "--port", "8081"
           )
 
-          JsTestServer::Configuration.instance.suite_representation_class.should == JsTestServer::Server::Representations::Suites::ScrewUnit
+          JsTestServer::Configuration.instance.suite_view_class.should == JsTestServer::Server::Views::Suites::ScrewUnit
+        end
+      end
+
+      context "when --javascript-files and --css-files are set" do
+        it "causes the suite_view_class to load the javascript and css files" do
+          project_spec_dir = File.expand_path("#{File.dirname(__FILE__)}/../../..")
+
+          mock.proxy(Thin::Runner).new(["--port", "8081", "--rackup", rackup_path, "start"]) do |runner|
+            mock(runner).run!
+          end
+
+          stub.proxy(Rack::Builder).new do |builder|
+            mock.proxy(builder).use(JsTestServer::Server::App)
+            stub.proxy(builder).use
+            mock(builder).run(is_a(JsTestServer::Server::App))
+            mock(builder).run(is_a(Sinatra::Application))
+          end
+
+          server.cli(
+            "--framework-name", "screw-unit",
+            "--framework-path", "#{project_spec_dir}/example_framework",
+            "--root-path", "#{project_spec_dir}/example_root",
+            "--spec-path", "#{project_spec_dir}/example_spec",
+            "--port", "8081",
+            "--javascript-files", "/javascripts/foo.js,/javascipts/large_file.js,/specs/spec_helper.js",
+            "--css-files", "/stylesheets/example.css"
+          )
+
+          JsTestServer::Configuration.instance.suite_view_class.project_js_files.should == [
+            "/javascripts/foo.js",
+            "/javascipts/large_file.js",
+            "/specs/spec_helper.js"
+          ]
+          JsTestServer::Configuration.instance.suite_view_class.project_css_files.should == [
+            "/stylesheets/example.css",
+          ]
         end
       end
 
