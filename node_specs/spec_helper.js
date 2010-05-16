@@ -37,7 +37,7 @@ var SpecHelper = {
     return path.join(__dirname, "../spec/example_root")
   },
   frameworkPath: function() {
-    return path.join(__dirname, "jasmine-node/lib/jasmine/jasmine-0.10.1.js")
+    return path.join(__dirname, "../spec/example_framework")
   },
   frameworkName: function() {
     return "jasmine"
@@ -59,6 +59,7 @@ var SpecHelper = {
       "--framework-path", SpecHelper.frameworkPath(),
       "--framework-name", SpecHelper.frameworkName()
     ]);
+    
     var serverStarted = false;
     proc.stdout.addListener("data", function(data) {
       sys.puts(data);
