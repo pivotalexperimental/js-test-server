@@ -73,18 +73,21 @@ var SpecHelper = {
   performRequest: function(method, path, params, callback) {
     var localhost = http.createClient(SpecHelper.serverPort(), "localhost");
     var request = localhost.request(method, path, params);
-    var body = "", responseFinished = false;
-    request.addListener('response', function (response) {
+    var response;
+    request.addListener('response', function () {
+      response = arguments[0]
+      response.body = ""
+      response.finished = false
       response.addListener("data", function (chunk) {
-        body += chunk;
+        response.body += chunk;
       });
       response.addListener('end', function () {
-        responseFinished = true
+        response.finished = true
       });
     });
     request.end();
     waitsFor(10000, function() {
-      return responseFinished && (callback(body) || true)
+      return response && response.finished && (callback(response) || true)
     });
   },
 
