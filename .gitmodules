@@ -16,3 +16,6 @@
 [submodule "spec/frameworks/screw-unit"]
 	path = spec/frameworks/screw-unit
 	url = git://github.com/pivotal/screw-unit.git
+[submodule "vendor/express"]
+	path = vendor/express
+	url = git://github.com/btakita/express.git
