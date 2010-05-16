@@ -7,9 +7,6 @@
 [submodule "vendor/trollopjs"]
 	path = vendor/trollopjs
 	url = http://github.com/bentomas/trollopjs.git
-[submodule "vendor/js-xml-builder"]
-	path = vendor/js-xml-builder
-	url = git://github.com/btakita/js-xml-builder.git
 [submodule "spec/frameworks/jasmine"]
 	path = spec/frameworks/jasmine
 	url = git://github.com/pivotal/jasmine.git
@@ -19,3 +16,6 @@
 [submodule "vendor/express"]
 	path = vendor/express
 	url = git://github.com/btakita/express.git
+[submodule "vendor/xmlbuilder.js"]
+	path = vendor/xmlbuilder.js
+	url = git@github.com:btakita/xmlbuilder.js.git
