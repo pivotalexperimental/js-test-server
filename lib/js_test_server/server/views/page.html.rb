@@ -26,6 +26,14 @@ class JsTestServer::Server::Views::Page < Erector::Widget
     yield(self)
   end
 
+  def javascript(params={})
+    if params[:src]
+      script({:type => "text/javascript"}.merge(params))
+    else
+      super
+    end
+  end
+
   def path
     helpers.rack_request.path_info
   end

@@ -12,9 +12,7 @@ class JsTestServer::Server::Views::Suites::Jasmine < JsTestServer::Server::Views
     link :rel => "stylesheet", :href => "/framework/jasmine.css"
     project_css_files
     spec_script_elements
-    script <<-JS
-      JsTestServer.JasmineDriver.init();
-    JS
+    javascript "JsTestServer.JasmineDriver.init();"
 
   end
 

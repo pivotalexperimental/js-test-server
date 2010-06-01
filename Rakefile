@@ -28,7 +28,7 @@ def run_suite
 end
 
 PKG_NAME = "js-test-server"
-PKG_VERSION = "0.2.6"
+PKG_VERSION = "0.2.7"
 PKG_FILES = FileList[
   '[A-Z]*',
   '*.rb',

@@ -1,8 +1,6 @@
 (function() {
   function JsTestServer() {
   }
-
-  ;
   window.JsTestServer = JsTestServer;
 
   JsTestServer.status = function() {
@@ -20,7 +18,6 @@
     for (var attribute in attributes) {
       html += (" " + attribute + "='" + attributes[attribute]) + "'";
     }
-    ;
     html += "></";
     html += name;
     html += ">";

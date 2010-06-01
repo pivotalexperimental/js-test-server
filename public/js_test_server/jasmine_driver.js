@@ -2,61 +2,62 @@ JsTestServer.JasmineDriver = {};
 
 JsTestServer.JasmineDriver.init = function() {
   JsTestServer.JasmineDriver.instance = new JsTestServer.JasmineDriver.Instance();
-  JsTestServer.JasmineDriver.instance.start();
+  JsTestServer.JasmineDriver.instance.init();
+  JsTestServer.JasmineDriver.instance.startJasmine();
 };
 
 JsTestServer.JasmineDriver.Instance = function() {
 };
 
 (function(Instance) {
-  var jsTestServerConsole = "";
-  var reporter;
+  var jsTestServerReporter;
 
-  Instance.prototype.start = function() {
-    this.addJasmineReporter();
+  Instance.prototype.init = function() {
     this.defineStatusMethod();
-    this.startJasmine();
-  };
-
-  Instance.prototype.addJasmineReporter = function() {
-    reporter = new JsTestServer.JasmineDriver.Reporter();
-    jasmine.getEnv().addReporter(reporter);
   };
 
   Instance.prototype.defineStatusMethod = function() {
     JsTestServer.status = function() {
       var runnerState;
-      if(jasmine.getEnv().currentRunner.finished) {
-        if(jasmine.getEnv().currentRunner.getResults().failedCount == 0) {
-          runnerState = "passed";
-        } else {
-          runnerState = "failed";
-        }
-      } else {
-        runnerState = "running";
-      }
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.reporter.log("jsTestServerReporter.finished: " + jsTestServerReporter.finished)
 
       return JsTestServer.JSON.stringify({
-        "runner_state": runnerState,
-        "console": jsTestServerConsole
+        "runner_state": jsTestServerReporter.runnerState,
+        "console": jsTestServerReporter.console
       });
     };
   };
 
   Instance.prototype.startJasmine = function() {
     var jasmineEnv = jasmine.getEnv();
-    var jsApiReporter = new jasmine.JsApiReporter();
-    jasmineEnv.addReporter(jsApiReporter);
+    jsTestServerReporter = new JsTestServer.JasmineDriver.Reporter();
+    jasmineEnv.addReporter(jsTestServerReporter);
+    jasmineEnv.addReporter(new jasmine.JsApiReporter());
+    jasmine.TrivialReporter.prototype.log = function() {
+      if (window.console && window.console.log) window.console.log.apply(window.console, arguments);
+    };
     jasmineEnv.addReporter(new jasmine.TrivialReporter());
+
     window.onload = function() {
       jasmineEnv.execute();
-    };
+    }
   };
 
   JsTestServer.JasmineDriver.Reporter = function() {
+    this.console = "";
+    this.finished = false;
+    this.runnerState = "running";
   };
   JsTestServer.JasmineDriver.Reporter.prototype.log = function(str) {
-    jsTestServerConsole += str;
-    jsTestServerConsole += "\n";
+    this.console += (str + "\n");
   };
+  JsTestServer.JasmineDriver.Reporter.prototype.reportRunnerResults = function(runner) {
+    this.finished = true;
+    if (runner.results().failedCount == 0) {
+      this.runnerState = "passed";
+    } else {
+      this.runnerState = "failed";
+    }
+  }
 })(JsTestServer.JasmineDriver.Instance);
