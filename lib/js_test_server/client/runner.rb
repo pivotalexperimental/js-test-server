@@ -96,9 +96,10 @@ module JsTestServer
       end
 
       def poll
-        raw_status = selenium_client.get_eval("window.JsTestServer.status()")
+        raw_status = selenium_client.get_eval("window.JsTestServer ? window.JsTestServer.status() : ''")
         unless raw_status.to_s == ""
           @current_status = JSON.parse(raw_status)
+#          puts "#{__FILE__}:#{__LINE__} #{console.inspect}"
         end
       end
 

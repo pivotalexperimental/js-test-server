@@ -1,3 +1,7 @@
+0.2.7
+- Fixed issue where Jasmine Runner hangs when there is no window.console
+- Fixed selenium runner for Jasmine.
+
 0.2.6
 - All js files are loaded, instead of *_spec.js.
 

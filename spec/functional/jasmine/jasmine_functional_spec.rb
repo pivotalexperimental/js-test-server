@@ -3,7 +3,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/../functional_spec_helper")
 describe JsTestServer do
   start_servers("jasmine")
   attr_reader :stdout, :request
-  
+
   before do
     @stdout = StringIO.new
     JsTestServer::Client.const_set(:STDOUT, stdout)

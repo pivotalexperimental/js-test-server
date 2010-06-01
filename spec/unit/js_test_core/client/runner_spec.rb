@@ -36,19 +36,19 @@ module JsTestServer
                 mock.proxy(driver).start.ordered
                 mock.proxy(driver).open("/specs").ordered
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => ""}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => ".."}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => "...F."}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => FAILED_RUNNER_STATE, "console" => "...F..\n\nFailure\n/specs/foo_spec.js"}.to_json
                 end
 
@@ -61,19 +61,19 @@ module JsTestServer
                 mock.proxy(driver).start.ordered
                 mock.proxy(driver).open("/specs").ordered
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => ""}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => ".."}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => RUNNING_RUNNER_STATE, "console" => "....."}.to_json
                 end
 
-                mock.strong(driver).get_eval("window.JsTestServer.status()") do
+                mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                   {"runner_state" => PASSED_RUNNER_STATE, "console" => "......\n\nPassed"}.to_json
                 end
 
@@ -100,19 +100,19 @@ module JsTestServer
               mock.proxy(driver).start.ordered
               mock.proxy(driver).open("/specs/path").ordered
 
-              mock.strong(driver).get_eval("window.JsTestServer.status()") do
+              mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                 {"runner_state" => RUNNING_RUNNER_STATE, "console" => ""}.to_json
               end
 
-              mock.strong(driver).get_eval("window.JsTestServer.status()") do
+              mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                 {"runner_state" => RUNNING_RUNNER_STATE, "console" => ".."}.to_json
               end
 
-              mock.strong(driver).get_eval("window.JsTestServer.status()") do
+              mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                 {"runner_state" => RUNNING_RUNNER_STATE, "console" => "....."}.to_json
               end
 
-              mock.strong(driver).get_eval("window.JsTestServer.status()") do
+              mock.strong(driver).get_eval("window.JsTestServer ? window.JsTestServer.status() : ''") do
                 {"runner_state" => PASSED_RUNNER_STATE, "console" => "......\n\nPassed"}.to_json
               end
 
