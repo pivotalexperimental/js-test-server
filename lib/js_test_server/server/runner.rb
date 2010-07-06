@@ -44,6 +44,12 @@ class JsTestServer::Server::Runner
         :type => String,
         :default => ""
       )
+      opt(
+        :javascript_test_file_glob,
+        "The glob to find the javascript files",
+        :type => String,
+        :default => DEFAULTS[:javascript_test_file_glob]
+      )
     end
 
     JsTestServer.port = opts[:port]
@@ -51,6 +57,7 @@ class JsTestServer::Server::Runner
     JsTestServer.framework_path = opts[:framework_path]
     JsTestServer.spec_path = opts[:spec_path]
     JsTestServer.root_path = opts[:root_path]
+    JsTestServer.javascript_test_file_glob = opts[:javascript_test_file_glob]
     suite_view_class = JsTestServer::Configuration.instance.suite_view_class
     suite_view_class.project_js_files.push(*opts[:javascript_files].split(","))
     suite_view_class.project_css_files.push(*opts[:css_files].split(","))

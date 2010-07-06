@@ -12,8 +12,8 @@ module JsTestServer
       end
     end
 
-    attr_reader :host, :port, :spec_path, :root_path, :framework_path, :framework_name
-    attr_writer :host, :port, :framework_path, :framework_name
+    attr_reader :host, :port, :spec_path, :root_path, :framework_path, :framework_name, :javascript_test_file_glob
+    attr_writer :host, :port, :framework_path, :framework_name, :javascript_test_file_glob
 
     def initialize(params={})
       params = Server::DEFAULTS.dup.merge(params)
@@ -23,6 +23,7 @@ module JsTestServer
       @port = params[:port]
       @framework_path = params[:framework_path]
       @framework_name = params[:framework_name]
+      @javascript_test_file_glob = params[:javascript_test_file_glob]
     end
 
     def suite_view_class

@@ -14,7 +14,7 @@ class JsTestServer::Server::Resources::SpecFile < JsTestServer::Server::Resource
   def do_get
     if ::File.exists?(absolute_path)
       if ::File.directory?(absolute_path)
-        spec_files = ::Dir["#{absolute_path}/**/*.js"].map do |file|
+        spec_files = ::Dir["#{absolute_path}/#{JsTestServer.javascript_test_file_glob}"].map do |file|
           ["#{relative_path}#{file.gsub(absolute_path, "")}"]
         end
         get_generated_spec(absolute_path, spec_files)

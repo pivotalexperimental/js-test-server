@@ -4,6 +4,7 @@ module JsTestServer::Server
     :port => 8080,
     :spec_path => File.expand_path("./spec/javascripts"),
     :root_path => File.expand_path("./public"),
+    :javascript_test_file_glob => "**/*_spec.js"
   }
 end
 
