@@ -7,3 +7,5 @@ JsTestServer provides a command line runner and html suite file generation for y
 
 == Thanks To
 * Aman Gupta for advice and patch to the Remote Control
+
+Copyright (c) 2010 Pivotal Labs. This software is licensed under the MIT License.
